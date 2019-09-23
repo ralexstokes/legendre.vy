@@ -1,0 +1,25 @@
+{
+    "_meta": {
+        "hash": {
+            "sha256": "89387c9e03a4350bf9a052cad02fb090310e7e48a81e9fbf0f698f83b2e2266e"
+        },
+        "pipfile-spec": 6,
+        "requires": {
+            "python_version": "3.7"
+        },
+        "sources": [
+            {
+                "name": "pypi",
+                "url": "https://pypi.org/simple",
+                "verify_ssl": true
+            }
+        ]
+    },
+    "default": {
+        "vyper": {
+            "git": "https://github.com/ethereum/vyper.git",
+            "ref": "8663ac5f6021a70f939fc22372c74b3b1c63785b"
+        }
+    },
+    "develop": {}
+}
