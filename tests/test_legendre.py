@@ -26,16 +26,16 @@ def jacobi_bit_mpz(a, n):
 
 
 @pytest.mark.parametrize(
-    'prime,value,expected_result',
+    'value,prime,expected_result',
     [
-        (p, v, jacobi_bit_mpz(v, p)) for p in PRIMES for v in VALUES
+        (v % p, p, jacobi_bit_mpz(v % p, p)) for p in PRIMES for v in VALUES
     ]
 )
 def test_legendre_bit(legendre_bit_contract,
                       w3,
-                      prime,
                       value,
+                      prime,
                       expected_result):
-    call = legendre_bit_contract.functions.legendre_bit(prime, value)
-    expected_result = call.call()
+    call = legendre_bit_contract.functions.legendre_bit(value, prime)
+    result = call.call()
     assert expected_result == result

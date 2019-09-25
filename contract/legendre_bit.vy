@@ -6,12 +6,12 @@ def legendre_bit(input_a: uint256, q: uint256) -> uint256:
     a: uint256 = input_a
     if a >= q:
         a = a % q
-    if a == 0:
-        return 0
+    if a == 1:
+        return 1
 
-    assert(q > a and a > 0 and q % 2 == 1)
+    assert(q > a and q % 2 == 1)
 
-    t: uint256 = 1
+    t: bool = True
     n: uint256 = q
     r: uint256
     tmp_a: uint256
@@ -26,16 +26,19 @@ def legendre_bit(input_a: uint256, q: uint256) -> uint256:
                     a = a / 2
                     r = n % 8
                     if r == 3 or r == 5:
-                        t = -t
+                        t = not t
             tmp_a = a
             a = n
             n = tmp_a
 
             if a % 4 == 3 and n % 4 == 3:
-                t = -t
+                t = not t
             a %= n
 
     if n == 1:
-        return (t + 1) / 2
+        if t:
+            return 1
+        else:
+            return 0
     else:
-        return 0
+        return 1
