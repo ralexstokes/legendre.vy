@@ -4,12 +4,13 @@ from hashlib import (
 from random import (
     randint,
 )
+from .utils import (
+    jacobi_bit_multi
+)
 
 import pytest
 
 import eth_utils
-
-from gmpy2 import jacobi
 
 PRIMES = [
 18446744073709551629,
@@ -21,53 +22,6 @@ PRIMES = [
 
 VALUES = [randint(0, 2**256 - 1) for i in range(10)]
 
-def jacobi_bit_mpz(a, n):
-    return 1 if jacobi(a, n) >= 0 else 0
-
-def jacobi_bit_multi(a, n, m):
-    r = 0
-    for i in range(m):
-        r *= 2
-        r += jacobi_bit_mpz(a + i, n)
-    return r
-
-
-"""
-@pytest.mark.parametrize(
-    'value,prime,expected_result',
-    [
-        (v % p, p, jacobi_bit_mpz(v % p, p)) for p in PRIMES for v in VALUES
-    ]
-)
-def test_legendre_bit(legendre_bit_contract,
-                      w3,
-                      value,
-                      prime,
-                      expected_result):
-    call = legendre_bit_contract.functions.legendre_bit(value, prime)
-    print(call.estimateGas())
-    result = call.call()
-    assert expected_result == result
-"""
-
-"""
-@pytest.mark.parametrize(
-    'value,prime,expected_result',
-    [
-        (v % p, p, jacobi_bit_mpz(v % p, p)) for p in PRIMES for v in VALUES
-    ]
-)
-def test_legendre_bit_expmod(legendre_bit_contract,
-                      w3,
-                      value,
-                      prime,
-                      expected_result):
-    call = legendre_bit_contract.functions.legendre_bit_expmod(value, prime)
-    print(call.estimateGas())
-    result = call.call()
-    assert expected_result == result
-"""
-
 @pytest.mark.parametrize(
     'value,prime',
     [
@@ -78,7 +32,7 @@ def test_legendre_bit_multi(legendre_bit_contract,
                       w3,
                       value,
                       prime):
-    call = legendre_bit_contract.functions.legendre_bit_multi(value, prime, 100)
+    call = legendre_bit_contract.functions.legendre_bit_multi_test(value, prime, 100)
     print(call.estimateGas())
     result = call.call()
     assert result == jacobi_bit_multi(value, prime, 100)
