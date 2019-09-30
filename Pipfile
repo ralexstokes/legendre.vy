@@ -6,7 +6,11 @@ verify_ssl = true
 [dev-packages]
 
 [packages]
-vyper = { git = "https://github.com/ethereum/vyper.git", ref = "v0.1.0-beta.12"}
+vyper = {git = "https://github.com/ethereum/vyper.git",ref = "v0.1.0-beta.12"}
+pytest = "*"
+eth-tester = {extras = ["py-evm"],version = "==0.2.0b2"}
+web3 = "==5.1.0"
+gmpy2 = "*"
 
 [requires]
 python_version = "3.7"
